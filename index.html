@@ -115,6 +115,9 @@ ul {
 li {
 	margin-top: 0.5em;
 }
+pre {
+	white-space: pre-wrap;
+}
 </style>
 </head>
 <body>
@@ -145,10 +148,12 @@ li {
 <h3>Features</h3>
 <ul>
 <li> Queryable commit database
+<li> Supports dynamic links (e. g. from continuous integration systems)
 <li> Integrates with GitHub, Gitlab and Sourceforge
 <li> Integrates with self hosted Git and CVS servers
 <li> Database upgrade from Bonsai or ViewVC-query possible
 <li> Mobile friendly view
+<li> Multi repository support
 <li> Enhanced privacy controls
 </ul>
 </section>
@@ -160,10 +165,10 @@ li {
 <li>Install dependencies</li>
 </ul>
 
-<div class="highlight highlight-source-shell"><pre>apt-get install python python-mysqldb</pre></div>
+<div class="highlight highlight-source-shell"><pre>apt-get install python-mysqldb</pre></div>
 
 <ul>
-<li>Enable cgi module in Apache: <code>a2enmod cgi</code>
+<li>Enable cgi in Apache: <code>a2enmod cgi</code>
 <li>Configure Apache in /etc/apache/sites/enabled/* to execute cgi-scripts:</li>
 </ul>
 
@@ -214,7 +219,7 @@ commit_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old
 <p>A global issue tracker is supported as fallback by adding the following configuration to config.py</p>
 
 <div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
-    <span class="pl-s"><span class="pl-pds">"</span>tracker<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://hiszilla.his.de/hiszilla/show_bug.cgi?id=<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>tracker<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://hiszilla.his.de/hiszilla/show_bug.cgi?id=$1<span class="pl-pds">"</span></span>,
 }</pre></div>
 </section>
 
@@ -234,8 +239,8 @@ commit_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old
 <p>By default the full email address of the author is displayed without profile icon. Both settings can be configured independently:</p>
 
 <div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
-    <span class="pl-s"><span class="pl-pds">"</span>avatar<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://gravatar.com<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>trim_email<span class="pl-pds">"</span></span> : <span class="pl-c1">True</span>
+  <span class="pl-s"><span class="pl-pds">"</span>avatar<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://gravatar.com<span class="pl-pds">"</span></span>,
+  <span class="pl-s"><span class="pl-pds">"</span>trim_email<span class="pl-pds">"</span></span> : <span class="pl-c1">True</span>
 }</pre>
 </div>
 
