@@ -24,12 +24,13 @@ h1, h2 {
 h1 {
 	font-size: 72px;
 }
-h2 {
-}
 h3 {
 	font-weight: normal;
 	font-size: 30px;
-	margin-top: 0
+	margin: 0;
+}
+h4 {
+	margin-bottom: 0;
 }
 .content {
 	margin: 0 auto;
@@ -61,8 +62,8 @@ section {
 	box-shadow: 3px 3px 3px 0px #AAA;
 }
 div.highlight {
-	margin-left: 2em;
-	padding: 0.5em 1em ;
+	margin-left: 1em;
+	padding: 0.2em 1em ;
 	background-color: #EEE;
 	border-radius: 3px;
 	border: 1px dashed #AAA;
@@ -71,6 +72,13 @@ div.highlight {
 footer {
 	margin: 2em 0;
 	font-size: 12px;
+}
+ul {
+	padding: 0;
+	margin: 0 0 0 1em;
+}
+li {
+	margin-top: 0.5em;
 }
 </style>
 </head>
@@ -100,12 +108,14 @@ footer {
 
 <section>
 <h3>Features</h3>
-<p> Queryable commit database
-<p> Integrates with GitHub, Gitlab and Sourceforge
-<p> Integrates with self hosted Git and CVS servers
-<p> Database upgrade from Bonsai or ViewVC-query
-<p> Mobile friendly view
-<p> Enhanced privacy controls
+<ul>
+<li> Queryable commit database
+<li> Integrates with GitHub, Gitlab and Sourceforge
+<li> Integrates with self hosted Git and CVS servers
+<li> Database upgrade from Bonsai or ViewVC-query possible
+<li> Mobile friendly view
+<li> Enhanced privacy controls
+</ul>
 </section>
 
 <section>
@@ -142,30 +152,30 @@ Options +ExecCGI
 
 <p>Postsai integrates with various hosted and local repositories:</p>
 
-<ul>
-<li>GitHub, Gitlab and SourceForge
+<h4>GitHub, Gitlab and SourceForge</h4>
 
 <ul>
 <li>Just add a Webhook to https://example.com/postsai/api.py and you are done.</li>
-</ul></li>
-<li>Self hosted Git repositories (including Gitolite)
+</ul>
+
+<h4> Self hosted Git (including Gitolite)</h4>
 
 <ul>
 <li>Use <a href="https://github.com/youyongsong/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=https://example.com/postsai/api.py<br> webhook-contenttype=application/json</li>
 <li>Edit the database table "repositories" to configure links. For git instaweb use: <br>
 file_url=http://example.com/?p=[repository];a=blob;f=[file];h=[revision]<br>
 commit_url=http://example.com/?p=[repository];a=commitdiff;h=[revision]</li>
-</ul></li>
-<li>CVS
+</ul>
 
+<h4> Self hosted CVS</h4>
 <ul>
-<li>Define a CVS Webhook <a href="https://github.com/postsai/notify-cvs-webhook">notify-cvs-webhook</a> in CVSROOT/loginfo with --url=https://example.com/postsai/api.py</li>
+<li>Define a CVS Webhook <a href="https://github.com/postsai/notify-cvs-webhook">notify-cvs-webhook</a> in CVSROOT/loginfo with<br>--url=https://example.com/postsai/api.py</li>
 <li>Edit the database table "repositories" to configure links.<br>
 file_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?revision=[revision]&amp;view=markup<br>
 commit_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old_revision]&amp;r2=[revision]</li>
-</ul></li>
 </ul>
 
+<h4>Global issue tracker</h4>
 <p>A global issue tracker is supported as fallback by adding the following configuration to config.py</p>
 
 <div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
