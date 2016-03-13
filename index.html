@@ -60,6 +60,17 @@ section {
 	border-radius:5px;
 	box-shadow: 3px 3px 3px 0px #AAA;
 }
+div.highlight {
+	margin-left: 2em;
+	padding: 0.5em 1em ;
+	background-color: #EEE;
+	border-radius: 3px;
+	border: 1px dashed #AAA;
+}
+footer {
+	margin: 2em 0;
+	font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -97,34 +108,27 @@ section {
 <div class="highlight highlight-source-shell"><pre>apt-get install python python-mysqldb</pre></div>
 
 <ul>
-<li>Create a postsai database in MySQL.</li>
-<li>Unzip postsai to your web server directory</li>
-<li>Create a file config.py with the following content:</li>
+<li>Enable cgi module in Apache: <code>a2enmod cgi</code>
+<li>Configure Apache in /etc/apache/sites/enabled/* to execute cgi-scripts:</li>
 </ul>
 
-<div class="highlight highlight-source-python"><pre><span class="pl-c">#!/usr/bin/python</span>
-
-db <span class="pl-k">=</span> {
-    <span class="pl-s"><span class="pl-pds">"</span>host<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>localhost<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>dbuser<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>password<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>dbpassword<span class="pl-pds">"</span></span>,
-    <span class="pl-s"><span class="pl-pds">"</span>database<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>postsai<span class="pl-pds">"</span></span>
-}</pre></div>
-
-<ul>
-<li>Execte <code>./install.py</code> and follow instructions</li>
-<li>Configure Apache to execute cgi-scripts in /etc/apache/sites/enabled/*</li>
-</ul>
-
-<pre lang="config"><code>AddHandler cgi-script .cy
+<div class="highlight">
+<pre lang="config"><code>AddHandler cgi-script .py
 Options +ExecCGI
 </code></pre>
+</div>
+
+<ul>
+<li>Create an empty postsai database in MySQL.</li>
+<li>Unzip postsai to your web server directory</li>
+<li>Execute <code>./install.py</code> and follow instructions</li>
+</ul>
 
 </section>
 
 <section>
 
-<h3><a id="user-content-integration" class="anchor" href="#integration" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Integration</h3>
+<h3>Integration</h3>
 
 <p>Postsai integrates with various hosted and local repositories:</p>
 
@@ -132,20 +136,23 @@ Options +ExecCGI
 <li>GitHub, Gitlab and SourceForge
 
 <ul>
-<li>Just add a Webhook to <a href="https://example.com/postsai/api.py">https://example.com/postsai/api.py</a> and you are done.</li>
+<li>Just add a Webhook to https://example.com/postsai/api.py and you are done.</li>
 </ul></li>
 <li>Self hosted Git repositories (including Gitolite)
 
 <ul>
-<li>Use <a href="https://github.com/youyongsong/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=<a href="https://example.com/postsai/api.py">https://example.com/postsai/api.py</a><br> webhook-contenttype=application/json</li>
-<li>Edit the database table "repositories" to configure links. For git instaweb use: <br>file_url=<a href="http://example.com/?p=%5Brepository%5D;a=blob;f=%5Bfile%5D;h=%5Brevision%5D">http://example.com/?p=[repository];a=blob;f=[file];h=[revision]</a><br>commit_url=<a href="http://example.com/?p=%5Brepository%5D;a=commitdiff;h=%5Brevision%5D">http://example.com/?p=[repository];a=commitdiff;h=[revision]</a></li>
+<li>Use <a href="https://github.com/youyongsong/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=https://example.com/postsai/api.py<br> webhook-contenttype=application/json</li>
+<li>Edit the database table "repositories" to configure links. For git instaweb use: <br>
+file_url=http://example.com/?p=[repository];a=blob;f=[file];h=[revision]<br>
+commit_url=http://example.com/?p=[repository];a=commitdiff;h=[revision]</li>
 </ul></li>
 <li>CVS
 
 <ul>
-<li>Define a CVS Webhook <a href="https://github.com/postsai/notify-cvs-webhook">notify-cvs-webhook</a> in CVSROOT/loginfo with --url=<a href="https://example.com/postsai/api.py">https://example.com/postsai/api.py</a></li>
-<li>-or- Setup <a href="http://www.viewvc.org/">ViewVC</a> with database support (for example via apt-get install viewvc viewvc-query) and use the same database for Postsai</li>
-<li>Edit the database table "repositories" to configure links.<br>file_url=<a href="http://cvs.example.com/cgi-bin/viewvc.cgi/%5Brepository%5D/%5Bfile%5D?revision=%5Brevision%5D&amp;view=markup">http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?revision=[revision]&amp;view=markup</a><br>commit_url=<a href="http://cvs.example.com/cgi-bin/viewvc.cgi/%5Brepository%5D/%5Bfile%5D?r1=%5Bold_revision%5D&amp;r2=%5Brevision%5D">http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old_revision]&amp;r2=[revision]</a></li>
+<li>Define a CVS Webhook <a href="https://github.com/postsai/notify-cvs-webhook">notify-cvs-webhook</a> in CVSROOT/loginfo with --url=https://example.com/postsai/api.py</li>
+<li>Edit the database table "repositories" to configure links.<br>
+file_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?revision=[revision]&amp;view=markup<br>
+commit_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old_revision]&amp;r2=[revision]</li>
 </ul></li>
 </ul>
 
@@ -154,16 +161,14 @@ Options +ExecCGI
 <div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
     <span class="pl-s"><span class="pl-pds">"</span>tracker<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://hiszilla.his.de/hiszilla/show_bug.cgi?id=<span class="pl-pds">"</span></span>,
 }</pre></div>
-
 </section>
 
 <section>
-
-<h3><a id="user-content-privacy" class="anchor" href="#privacy" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" role="img" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1h-1c-1.5 0-3-1.69-3-3.5s1.55-3.5 3-3.5h4c1.45 0 3 1.69 3 3.5 0 1.41-0.91 2.72-2 3.25v-1.16c0.58-0.45 1-1.27 1-2.09 0-1.28-1.02-2.5-2-2.5H4c-0.98 0-2 1.22-2 2.5s1 2.5 2 2.5z m9-3h-1v1h1c1 0 2 1.22 2 2.5s-1.02 2.5-2 2.5H9c-0.98 0-2-1.22-2-2.5 0-0.83 0.42-1.64 1-2.09v-1.16c-1.09 0.53-2 1.84-2 3.25 0 1.81 1.55 3.5 3 3.5h4c1.45 0 3-1.69 3-3.5s-1.5-3.5-3-3.5z"></path></svg></a>Privacy</h3>
+<h3>Privacy</h3>
 
 <p>Postsai supports privacy filters.</p>
 
-<p>A common use case is to prevent queries for changes done by humans. But to allow queries on changes from bot-accounts.</p>
+<p>A common use case is to prevent queries for changes done by a specific human. But to allow queries on changes from bot-accounts.</p>
 
 <p>This example limits queries on the who-column to the value "cvsscript".</p>
 
@@ -177,10 +182,15 @@ Options +ExecCGI
     <span class="pl-s"><span class="pl-pds">"</span>avatar<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://gravatar.com<span class="pl-pds">"</span></span>,
     <span class="pl-s"><span class="pl-pds">"</span>trim_email<span class="pl-pds">"</span></span> : <span class="pl-c1">True</span>
 }</pre>
+</div>
 
 </section>
 
-</div>
+<footer>
 
+(C) Copyright 2016 Postsai. Postsai is released as Free and Open Source Software under MIT license.
+
+</footer>
+</div>
 </body>
 </html>
