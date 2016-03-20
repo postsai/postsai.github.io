@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<style>
+body {
+	padding: 1em;
+}
+tr.th th {
+	background-color: #003;
+	color: #FFF;
+}
+code {
+	color: #000;
+	background: transparent;
+}
+</style>
+<title>Test 001</title>
+</head>
+<body>
+
+<table class="table table-bordered">
+
+<tr class="th">
+<th colspan="2"><h3>Test 001: Installation</h3></th>
+</tr>
+
+<tr>
+<th>Objective</th>
+<td>Ensure the installation of Postsai works</td>
+</tr>
+
+<tr>
+<th>Test Status</th>
+<td>Stable</td>
+</tr>
+
+<tr>
+<th>Prerequisite</th>
+<td>A minimal ubuntu installation based on <a href="https://help.ubuntu.com/community/Installation/MinimalCD">https://help.ubuntu.com/community/Installation/MinimalCD</a></td>
+</tr>
+
+</table>
+
+<div class="table-responsive"> 
+<table class="table table-striped table-bordered table-hover">
+<tr class="th">
+<th>#</th>
+<th>Action</th>
+<th>User input</th>
+<th>Expected result</th>
+</tr>
+
+<tbody>
+
+<tr>
+<td>1</td>
+<td>Become root</td>
+<td><code>sudo -s</code> and enter your password</td>
+<td>Root prompt</td>
+</tr>
+
+
+<tr>
+<td>2</td>
+<td>Install required packages</td>
+<td><code>apt-get install -y unzip apache2 mysql-client mysql-server python-mysqldb</code></td>
+<td>After some time, you are asked for a MySQL root password</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Define mysql root password</td>
+<td>Enter: [MysqlRootPassword]</td>
+<td>You are asked to repeat the password</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Repeat mysql root password</td>
+<td>Enter again: [MysqlRootPassword]</td>
+<td>apt-get completes successfully</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Create database and user</td>
+<td><code>echo "CREATE DATABASE postsai; GRANT ALL ON postsai.* TO postsaiuser IDENTIFIED BY '[PostsaiPassword]';" | mysql -p</code></td>
+<td>Password prompt</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Login to mysql</td>
+<td>Enter: [MysqlRootPassword]</td>
+<td>Query OK</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Edit apache configuration</td>
+<td><code>pico /etc/apache2/sites-enabled/000-default.conf</code></td>
+<td>Configuration file is opened in editor</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>Configure cgi inside VirtualHost</td>
+<td>Enter the following code and exit the editor via ^O ^X:<pre>&lt;Directory /var/www/html&gt;
+   Options +ExecCGI
+   AddHandler cgi-script .py
+&lt;/Directory&gt;</pre></td>
+<td>Command prompt</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>Enable cgi in Apache</td>
+<td><code>a2enmod cgi</code></td>
+<td>Module cgi or cgid was enabled</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>Restart Apache</td>
+<td><code>service apache2 restart</code></td>
+<td>No error message</td>
+</tr>
+
+<tr>
+<td>11</td>
+<td>Change to Webroot</td>
+<td><code>cd /var/www/html</code></td>
+<td>Directory changed</td>
+</tr>
+
+<tr>
+<td>12</td>
+<td>Unzip Postsai</td>
+<td><code>unzip [path-to-postsai.zip]</code></td>
+<td>A list of unziped files is displayed</td>
+</tr>
+
+<tr>
+<td>13</td>
+<td>Change to postsai folder</td>
+<td><code>cd postsai</code></td>
+<td>Directory changed</td>
+</tr>
+
+<tr>
+<td>14</td>
+<td>Create configuration file</td>
+<td><code>pico config.py</code></td>
+<td>Empty configuration file is opened in editor</td>
+</tr>
+
+<tr>
+<td>15</td>
+<td>Configure database connection</td>
+<td>Enter the following code and exit the editor via ^O ^X:
+<pre>db = {
+    "host" : "localhost",
+    "user" : "postsaiuser",
+    "password" : "[PostsaiPassword]",
+    "database" : "postsai"
+}
+</pre></td>
+<td>Command prompt</td>
+</tr>
+
+<tr>
+<td>16</td>
+<td>Complete installation</td>
+<td><code>./install.py</code></td>
+<td>Several lines starting with "OK" and no lines starting with "ERROR".</td>
+</tr>
+
+</tbody>
+</table>
+
+</div>
+
+</body>
+</html>
+
