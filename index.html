@@ -168,17 +168,19 @@ pre {
 <div class="highlight highlight-source-shell"><pre>apt-get install python-mysqldb</pre></div>
 
 <ul>
-<li>Enable cgi in Apache: <code>a2enmod cgi</code>
 <li>Configure Apache in /etc/apache/sites/enabled/* to execute cgi-scripts:</li>
 </ul>
 
 <div class="highlight">
-<pre lang="config"><code>AddHandler cgi-script .py
-Options +ExecCGI
+<pre lang="config"><code>&lt;Directory /var/www/html&gt;
+   AddHandler cgi-script .py
+   Options +ExecCGI
+&lt;/Directory&gt;
 </code></pre>
 </div>
 
 <ul>
+<li>Enable cgi in Apache: <code>a2enmod cgi</code> and restart Apache
 <li>Create an empty postsai database in MySQL.</li>
 <li>Unzip postsai to your web server directory</li>
 <li>Execute <code>./install.py</code> and follow instructions</li>
@@ -201,18 +203,18 @@ Options +ExecCGI
 <h4> Self hosted Git (including Gitolite)</h4>
 
 <ul>
-<li>Use <a href="https://github.com/youyongsong/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=https://example.com/postsai/api.py<br> webhook-contenttype=application/json</li>
+<li>Use <a href="https://github.com/nhnb/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=https://example.com/postsai/api.py<br> webhook-contenttype=application/json</li>
 <li>Edit the database table "repositories" to configure links. For git instaweb use: <br>
-file_url=http://example.com/?p=[repository];a=blob;f=[file];h=[revision]<br>
-commit_url=http://example.com/?p=[repository];a=commitdiff;h=[revision]</li>
+file_url: http://example.com/?p=[repository];a=blob;f=[file];h=[revision]<br>
+commit_url: http://example.com/?p=[repository];a=commitdiff;h=[revision]</li>
 </ul>
 
 <h4> Self hosted CVS</h4>
 <ul>
 <li>Define a CVS Webhook <a href="https://github.com/postsai/notify-cvs-webhook">notify-cvs-webhook</a> in CVSROOT/loginfo with<br>--url=https://example.com/postsai/api.py</li>
 <li>Edit the database table "repositories" to configure links.<br>
-file_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?revision=[revision]&amp;view=markup<br>
-commit_url=http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old_revision]&amp;r2=[revision]</li>
+file_url: http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?revision=[revision]&amp;view=markup<br>
+commit_url: http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old_revision]&amp;r2=[revision]</li>
 </ul>
 
 <h4>Global issue tracker</h4>
