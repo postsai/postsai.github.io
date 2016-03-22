@@ -1,2 +1,2 @@
-<a href="https://postsai.github.com">Postsai Website</a>
+<a href="https://postsai.github.io">Postsai Website</a>
 -
