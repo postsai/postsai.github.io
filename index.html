@@ -154,7 +154,7 @@ pre {
 <li> Database upgrade from Bonsai or ViewVC-query possible
 <li> Mobile friendly view
 <li> Multi repository support
-<li> Enhanced privacy controls
+<li> Optional support for Gravatar
 </ul>
 </section>
 
@@ -205,7 +205,7 @@ pre {
 <ul>
 <li>Use <a href="https://github.com/nhnb/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=https://example.com/postsai/api.py<br> webhook-contenttype=application/json</li>
 <li>Edit the database table "repositories" to configure links. For git instaweb use: <br>
-file_url: http://example.com/?p=[repository];a=blob;f=[file];h=[revision]<br>
+file_url: http://example.com/?p=[repository];a=blob;f=[file];hb=[revision]<br>
 commit_url: http://example.com/?p=[repository];a=commitdiff;h=[revision]</li>
 </ul>
 
@@ -228,9 +228,29 @@ commit_url: http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[ol
 <section>
 <h3>Privacy</h3>
 
-<p>Postsai supports privacy filters.</p>
+<p><b>Hide email domain</b>
 
-<p>A common use case is to prevent queries for changes done by a specific human. But to allow queries on changes from bot-accounts.</p>
+<p>By default the full email address of the author is displayed. This can be disabled:
+
+<div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
+  <span class="pl-s"><span class="pl-pds">"</span>trim_email<span class="pl-pds">"</span></span> : <span class="pl-c1">True</span>
+}</pre>
+</div>
+
+<p><b>Profile icons</b>
+
+<p>Postsai can display Gravatar icons next to author names.
+
+<div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
+  <span class="pl-s"><span class="pl-pds">"</span>avatar<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://gravatar.com<span class="pl-pds">"</span></span>,
+}</pre>
+</div>
+
+<p>Please note that Gravatar is an external service that might log user activities.</p>
+
+<p><b>Search criteria filter</b>
+
+<p>Postsai can enforce filters on query parameters. For example it may be desirable to disallow queries on the changes of human beings but allow such queries for bot accounts. 
 
 <p>This example limits queries on the who-column to the value "cvsscript".</p>
 
@@ -238,13 +258,7 @@ commit_url: http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[ol
     <span class="pl-s"><span class="pl-pds">"</span>who<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>^cvsscript$<span class="pl-pds">"</span></span>
 }</pre></div>
 
-<p>By default the full email address of the author is displayed without profile icon. Both settings can be configured independently:</p>
-
-<div class="highlight highlight-source-python"><pre>ui <span class="pl-k">=</span> {
-  <span class="pl-s"><span class="pl-pds">"</span>avatar<span class="pl-pds">"</span></span> : <span class="pl-s"><span class="pl-pds">"</span>https://gravatar.com<span class="pl-pds">"</span></span>,
-  <span class="pl-s"><span class="pl-pds">"</span>trim_email<span class="pl-pds">"</span></span> : <span class="pl-c1">True</span>
-}</pre>
-</div>
+<p>Please note that it is relatively easy to postprocess query results. Therefore the effect of such filter is limited.</p>
 
 </section>
 
