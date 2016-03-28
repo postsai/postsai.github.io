@@ -216,18 +216,17 @@ pre {
 <h4> Self hosted Git (including Gitolite)</h4>
 
 <ul>
-<li>Use <a href="https://github.com/nhnb/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>webhookurl=https://example.com/postsai/api.py<br> webhook-contenttype=application/json</li>
-<li>Edit the database table "repositories" to configure links. For git instaweb use: <br>
-file_url: http://example.com/?p=[repository];a=blob;f=[file];hb=[revision]<br>
-commit_url: http://example.com/?p=[repository];a=commitdiff;h=[revision]</li>
+<li>Use <a href="https://github.com/nhnb/notify-webhook">notify-webhook</a> to setup a webhook with the following configuration<br>
+meta.url=http://git.example.com:1234<br>
+hook.webhookurl=https://example.com/postsai/api.py<br>
+hook.webhook-contenttype=application/json</li>
+<li>Edit the database table "repositories" to configure links, if you are not using instaweb</li>
 </ul>
 
 <h4> Self hosted CVS</h4>
 <ul>
 <li>Define a CVS Webhook <a href="https://github.com/postsai/notify-cvs-webhook">notify-cvs-webhook</a> in CVSROOT/loginfo with<br>--url=https://example.com/postsai/api.py</li>
-<li>Edit the database table "repositories" to configure links.<br>
-file_url: http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?revision=[revision]&amp;view=markup<br>
-commit_url: http://cvs.example.com/cgi-bin/viewvc.cgi/[repository]/[file]?r1=[old_revision]&amp;r2=[revision]</li>
+<li>You might want to edit the database table "repositories" to configure an icon.</li>
 </ul>
 
 <h4>Global issue tracker</h4>
