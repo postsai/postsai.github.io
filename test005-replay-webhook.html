@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="test.css">
+<title>Test 005</title>
+</head>
+<body>
+
+
+<header>
+<div class="content">
+<h1><a class="homelink" href="/">Postsai</a></h1>
+<h2>The Commit Database</h2>
+
+<a class="button" href="https://github.com/postsai/postsai">GitHub</a>
+<a class="button" href="https://arianne-project.org/postsai/query.html?date=month">Demo</a>
+<a class="button download" href="https://github.com/postsai/postsai/releases/download/v0.5/postsai-0.5.zip">Download</a>
+
+</div>
+</header>
+
+<div class="content">
+
+<section>
+<table class="table table-bordered">
+
+<tr class="th">
+<th colspan="2"><h3>Test 005: replay-webhook</h3></th>
+</tr>
+
+<tr>
+<th>Objective</th>
+<td>Ensure it is possible import an existing git repository.</td>
+</tr>
+
+<tr>
+<th>Test Status</th>
+<td>Stable</td>
+</tr>
+
+<tr>
+<th>Prerequisite</th>
+<td>A Postsai installation on a Debian/Ubuntu system and the Git command line tool as well as python-git</td>
+</tr>
+
+</table>
+</section>
+
+
+<section>
+<table class="table table-striped table-bordered table-hover">
+<tr class="th">
+<th>#</th>
+<th>Action</th>
+<th>User input</th>
+<th>Expected result</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Create test workspace and change into it</td>
+<td><code>mkdir /tmp/postsaitest; cd /tmp/postsaitest</code></td>
+<td>No error messages and the current working directory was changed.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Download replay-webhook </td>
+<td><code>wget https://raw.githubusercontent.com/postsai/replay-webhook/master/replay.py</code></td>
+<td>replay.py was saved</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Make it executable</td>
+<td><code>chmod +x replay.py</code></td>
+<td></td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Create a new Git repository</td>
+<td><code>git init gitrepository</code></td>
+<td>Empty repository is initialized in /tmp/postsaitest/gitrepository</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Change working directory </td>
+<td><code>cd gitrepository</code></td>
+<td>Working directory was changed</td>
+</tr>
+
+
+<tr>
+<td>6</td>
+<td>Make a test commit</td>
+<td><code>echo a > test; git add test; git commit -m "test message" test</code></td>
+<td>One file was changed in the repository.</td>
+</tr>
+
+
+<tr>
+<td>7</td>
+<td>Make a second commit</td>
+<td><code>echo a >> test; git commit -m "second test message" test</code></td>
+<td>One file was changed in the repository.</td>
+</tr>
+
+<tr>
+<td>8</td>
+<td>Import repository</td>
+<td><code>../replay.py --home-url=http://example.com --name=test --url=http://localhost/postsai/api.py .</code></td>
+<td>The master branch was imported.</td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>Verify commit entry in postsai</td>
+<td>Open http://localhost/postsai/ in a web browser.</td>
+<td>There are exactly two new commits for the test repository. The File-column has a link which starts with http://example.com/?p=test;a=blob;f=test;</td>
+</tr>
+
+<tr>
+<td>10</td>
+<td>Import repository again</td>
+<td><code>../replay.py --home-url=http://example.com --name=test --url=http://localhost/postsai/api.py .</code></td>
+<td>The master branch was imported.</td>
+</tr>
+
+<tr>
+<td>11</td>
+<td>Verify commit entry in postsai</td>
+<td>Open http://localhost/postsai/ in a web browser.</td>
+<td>There are no duplicated commits.</td>
+</tr>
+
+
+</table>
+</section>
+
+
+
+<footer>
+(C) Copyright 2016 Postsai. Postsai is released as Free and Open Source Software under MIT license.
+</footer>
+
+</div>
+</body>
+</html>
+
