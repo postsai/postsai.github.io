@@ -104,7 +104,7 @@
 <td>7</td>
 <td>Edit loginfo configuration file to add invocation of notify-cvs-webhook</td>
 <td><code>pico loginfo</code><br>Add the following line at the end of the file:<br>
-<code>ALL /tmp/postsaitest/notify-cvs-webhook.py --url="http://localhost/postsai/api.py" --home-url="https://cvs.example.com/cgi-bin/viewvc.cgi" --repository=myrepo --default-email-domain=example.com --commitid=%I --folder=%p %{sVv}</code><br>
+<code>ALL /tmp/postsaitest/notify-cvs-webhook.py --url="http://localhost/postsai/api.py" --home-url="https://cvs.example.com/cgi-bin/viewvc.cgi" --repository-url="/tmp/postsaitest/cvsserver" --repository=myrepo --default-email-domain=example.com --commitid=%I --folder=%p %{sVv}</code><br>
 and exit the editor with ^O ^X</td>
 <td>File was saved</td>
 </tr>
