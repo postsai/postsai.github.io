@@ -1,0 +1,103 @@
+<XML_DIZ_INFO>
+	<MASTER_PAD_VERSION_INFO>
+		<MASTER_PAD_VERSION>3.10</MASTER_PAD_VERSION>
+		<MASTER_PAD_EDITOR>Online PAD Generator 1.33</MASTER_PAD_EDITOR>
+		<MASTER_PAD_INFO>Portable Application Description, or PAD for short, is a data set that is used by shareware authors to disseminate information to anyone interested in their software products. To find out more go to http://www.asp-shareware.org/pad</MASTER_PAD_INFO>
+	</MASTER_PAD_VERSION_INFO>
+	<Company_Info>
+		<Company_Name>Postsai</Company_Name>
+		<Address_1 />
+		<Address_2 />
+		<City_Town />
+		<State_Province />
+		<Zip_Postal_Code />
+		<Country />
+		<Company_WebSite_URL>https://postsai.github.io</Company_WebSite_URL>
+		<Contact_Info>
+			<Author_First_Name />
+			<Author_Last_Name />
+			<Author_Email>arianne-general@lists.sourceforge.net</Author_Email>
+			<Contact_First_Name />
+			<Contact_Last_Name />
+			<Contact_Email />
+		</Contact_Info>
+		<Support_Info>
+			<Sales_Email />
+			<Support_Email>arianne-general@lists.sourceforge.net</Support_Email>
+			<General_Email>arianne-general@lists.sourceforge.net</General_Email>
+			<Sales_Phone />
+			<Support_Phone />
+			<General_Phone />
+			<Fax_Phone />
+		</Support_Info>
+	</Company_Info>
+	<Program_Info>
+		<Program_Name>Postsai</Program_Name>
+		<Program_Version>0.9.3</Program_Version>
+		<Program_Release_Month>9</Program_Release_Month>
+		<Program_Release_Day>18</Program_Release_Day>
+		<Program_Release_Year>2016</Program_Release_Year>
+		<Program_Cost_Dollars />
+		<Program_Cost_Other_Code />
+		<Program_Cost_Other />
+		<Program_Type>Freeware</Program_Type>
+		<Program_Release_Status />
+		<Program_Install_Support />
+		<Program_OS_Support>Linux</Program_OS_Support>
+		<Program_Language>English</Program_Language>
+		<Program_Change_Info />
+		<Program_Specific_Category>DevelopmentTools</Program_Specific_Category>
+		<Program_Category_Class>Development::Debugging</Program_Category_Class>
+		<Program_Categories />
+		<Program_System_Requirements />
+		<File_Info>
+			<File_Size_Bytes />
+			<File_Size_K />
+			<File_Size_MB />
+		</File_Info>
+		<Expire_Info>
+			<Has_Expire_Info>N</Has_Expire_Info>
+			<Expire_Count />
+			<Expire_Based_On />
+			<Expire_Other_Info />
+			<Expire_Month />
+			<Expire_Day />
+			<Expire_Year />
+		</Expire_Info>
+	</Program_Info>
+	<Program_Descriptions>
+		<English>
+			<Keywords>CVS, Git, Commits, SCM, VCS, Bonsai</Keywords>
+			<Char_Desc_45>The Commit Database</Char_Desc_45>
+			<Char_Desc_80>Postsai allows easy queries on commits to Git and CVS.</Char_Desc_80>
+			<Char_Desc_250>Postsai allows easy queries on commits to Git and CVS. It supports self-hosted repostories as well as GitHub, SourceForge and Gitlab. Postsai is a successor of Bonsai with a modern web interface and support for modern repositories.</Char_Desc_250>
+			<Char_Desc_450>Postsai allows easy queries on commits to Git and CVS. It supports self-hosted repostories as well as GitHub, SourceForge and Gitlab. Postsai is a successor of Bonsai with a modern web interface and support for modern repositories.</Char_Desc_450>
+			<Char_Desc_2000>Postsai allows easy queries on commits to Git and CVS. It supports self-hosted repostories as well as GitHub, SourceForge and Gitlab. Postsai is a successor of Bonsai with a modern web interface and support for modern repositories.</Char_Desc_2000>
+		</English>
+	</Program_Descriptions>
+	<Web_Info>
+		<Application_URLs>
+			<Application_Info_URL>https://postsai.github.io</Application_Info_URL>
+			<Application_Order_URL />
+			<Application_Screenshot_URL>https://postsai.github.io/screenshot.png</Application_Screenshot_URL>
+			<Application_Icon_URL>https://postsai.github.io/postsai-64.png</Application_Icon_URL>
+			<Application_XML_File_URL>https://postsai.github.io/pad_file.xml</Application_XML_File_URL>
+		</Application_URLs>
+		<Download_URLs>
+			<Primary_Download_URL>https://github.com/postsai/postsai/releases/download/v0.9.3/postsai-0.9.3.zip</Primary_Download_URL>
+			<Secondary_Download_URL />
+			<Additional_Download_URL_1 />
+			<Additional_Download_URL_2 />
+		</Download_URLs>
+	</Web_Info>
+	<Permissions>
+		<Distribution_Permissions>MIT</Distribution_Permissions>
+		<EULA>
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+		</EULA>
+	</Permissions>
+</XML_DIZ_INFO>
