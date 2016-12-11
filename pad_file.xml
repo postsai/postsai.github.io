@@ -84,7 +84,7 @@
 			<Application_XML_File_URL>https://postsai.github.io/pad_file.xml</Application_XML_File_URL>
 		</Application_URLs>
 		<Download_URLs>
-			<Primary_Download_URL>https://github.com/postsai/postsai/releases/download/v0.9.4/postsai-0.9.4.zip</Primary_Download_URL>
+			<Primary_Download_URL>https://github.com/postsai/postsai/releases/download/v0.9.6/postsai-0.9.6.zip</Primary_Download_URL>
 			<Secondary_Download_URL />
 			<Additional_Download_URL_1 />
 			<Additional_Download_URL_2 />
