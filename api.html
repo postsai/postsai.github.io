@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="test.css">
+<title>Postsai API</title>
+</head>
+<body>
+
+
+<header>
+<div class="content">
+<h1><a class="homelink" href="/">Postsai</a></h1>
+<h2>The Commit Database</h2>
+
+<a class="button" href="https://github.com/postsai/postsai">GitHub</a>
+<a class="button" href="https://arianne-project.org/postsai/query.html?date=month">Demo</a>
+<a class="button download" href="https://github.com/postsai/postsai/releases/download/v0.9.7/postsai-0.9.7.zip">Download</a>
+
+</div>
+</header>
+
+<div class="content">
+
+<section id="queryapi">
+<h3>Query API</h3>
+<br>
+<p>The Postsai database may be queried programmatically using a REST service.</p>
+
+<p>The endpoint is /api.py and it understands the same parameters as the webinterface.</p>
+
+</section>
+
+<section id="urlparamerts">
+<h3>URL Parameters</h3>
+<br>
+
+<p>The Postsai API understand the following parameters. 
+All of these parameter are optional.</p>
+
+<table class="table table-bordered">
+<tr class="th">
+<th>Name</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>branch</td>
+<td>Name of the SCM branch</td>
+</tr>
+<tr>
+<td>branchtype</td>
+<td><code>match, regexp, notregexp</code> how to parse the  parameter.</td>
+</tr>
+<tr>
+<td>commit</td>
+<td>The repository wide commitid, e.g. the git hash. Note for CVS: This is the CVS commitid, it is not the file revision.</td>
+</tr>
+<tr>
+<td>committype</td>
+<td><code>match, regexp, notregexp</code> how to parse the  parameter.</td>
+</tr>
+<tr>
+<td>date</td>
+<td><code>day, month, hours, exact</code> Limits the result to the most recent day or month. Or use the parameters hours, mindate, maxdate. Defaults to date=day.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Commit comment</td>
+</tr>
+<tr>
+<td>descriptiontype</td>
+<td><code>match, search, regexp, notregexp</code> how to parse the description parameter. Search performs a fulltext word search, but falls back to regexp on MySQL &lt;= 5.5</td>
+</tr>
+<tr>
+<td>dir</td>
+<td>Directory of the modified files.</td>
+</tr>
+<tr>
+<td>dirtype</td>
+<td><code>match, regexp, notregexp</code> how to parse the dir parameter.</td>
+</tr>
+<tr>
+<td>file</td>
+<td>Name (without directory) of the modified files.</td>
+</tr>
+<tr>
+<td>filetype</td>
+<td><code>match, regexp, notregexp</code> how to parse the file parameter.</td>
+</tr>
+<tr>
+<td>hours</td>
+<td>Number of hours to look into the past, requires parameter date=hours.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>Maximum number of results to return.</td>
+</tr>
+<tr>
+<td>mindate</td>
+<td>Start results at this timestamp, requires parameter date=exact.</td>
+</tr>
+<tr>
+<td>maxdate</td>
+<td>End results at this timestamp, requires parameter date=exact.</td>
+</tr>
+<tr>
+<td>repository</td>
+<td>Name of repository. Note for CVS: The module inside the repository is part of the dir parameter.</td>
+</tr>
+<tr>
+<td>repositorytype</td>
+<td><code>match, regexp, notregexp</code> how to parse the repository parameter.</td>
+</tr>
+<tr>
+<td>who</td>
+<td>Email address of committer.</td>
+</tr>
+<tr>
+<td>whotype</td>
+<td><code>match, regexp, notregexp</code> how to parse the who parameter.</td>
+</tr>
+</table>
+</section>
+
+<section id="result">
+<h3>Result</h3>
+<br>
+<p>The query is answered with a JSON structure consisting of four main parts:</p>
+
+<table class="table table-bordered">
+<tr class="th">
+<th>Key</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>repositories</td>
+<td>Meta information about each repository such as commit urls and tracker links.</td>
+</tr>
+<tr>
+<td>data</td>
+<td>An array of commits: repository, timestamp, author, file-array, revision-array (for CVS), branch, deprecated, commit message, deprecated, commitid</td>
+</tr>
+<tr>
+<td>config</td>
+<td>The ui-section of config.py.</td>
+</tr>
+<tr>
+<td>extensions</td>
+<td>Additional information provided by extensions.</td>
+</tr>
+</table>
+</section>
+
+<section id="example">
+<h3>Example</h3>
+<br>
+
+<p><b>Query</b></p>
+
+<pre>https://arianne-project.org/postsai/<b>api.py</b>
+    ?<b>repository</b>=postsai%2Fpostsai
+    &amp;<b>repositorytype</b>=match
+    &amp;<b>date</b>=explicit
+    &amp;<b>mindate</b>=2017-02-25+23%3A12%3A16
+    &amp;<b>maxdate</b>=2017-02-25+23%3A12%3A16
+</pre>
+
+<p><b>Response</b></p>
+
+<pre>
+{
+   "repositories":{
+     "postsai/postsai":{
+         "repository":"postsai/postsai",
+         "commit_url":"https://github.com/postsai/postsai/commit/[commit]",
+         "icon_url":"https://arianne-project.org/postsai/resources/postsai-16.png",
+         "file_url":"https://github.com/postsai/postsai/blob/[commit]/[file]",
+         "base_url":"https://github.com/postsai/postsai",
+         "tracker_url":"https://github.com/postsai/postsai/issues/$1",
+         "id":6
+      }
+   },
+   "data":[
+      [
+         "postsai/postsai",
+         "2017-02-25 23:12:16",
+         "nhnb@users.sourceforge.net",
+         [
+            "resources/postsai.js"
+         ],
+         [
+            "cd363f6e1de2f7c55e97c7b1c28df110822813ce"
+         ],
+         "",
+         "0/0",
+         "improved error handling",
+         "postsai/postsai",
+         "cd363f6e1de2f7c55e97c7b1c28df110822813ce"
+      ],
+      [
+         "postsai/postsai",
+         "2017-02-25 23:12:16",
+         "nhnb@users.sourceforge.net",
+         [
+            "query.html",
+            "resources/postsai.js"
+         ],
+         [
+            "4c9ebae295797a9533a06d70f90684b29f15b377",
+            "4c9ebae295797a9533a06d70f90684b29f15b377"
+         ],
+         "",
+         "0/0",
+         "added a comma between file names on export",
+         "postsai/postsai",
+         "4c9ebae295797a9533a06d70f90684b29f15b377"
+      ]
+   ],
+   "config":{
+      "trim_email":true,
+      "avatar":"https://gravatar.com",
+      "pre_merge":true
+   },
+   "extension":{
+
+   }
+}
+</pre>
+</section>
+
+<footer>
+(C) Copyright 2016-2017 Postsai. Postsai is released as Free and Open Source Software under MIT license.
+</footer>
+
+</div>
+</body>
+</html>
+
