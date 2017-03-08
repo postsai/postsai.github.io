@@ -136,7 +136,7 @@ pre {
 
 <div class="content">
 
-<section>
+<section id="screenshot">
 <h3>Screenshot</h3>
 <p>Postsai in action</p>
 
@@ -144,7 +144,7 @@ pre {
 
 </section>
 
-<section>
+<section id="features">
 <h3>Features</h3>
 <ul>
 <li> Queryable commit database
@@ -159,7 +159,7 @@ pre {
 </ul>
 </section>
 
-<section>
+<section id="installation">
 <h3>Installation</h3>
 
 <ul>
@@ -168,7 +168,7 @@ pre {
 <div class="highlight highlight-source-shell"><pre>apt-get install python-mysqldb</pre></div>
 
 <ul>
-<li>Optinally install dependencies for CVS commit view</li>
+<li>Optionally install dependencies for CVS commit view</li>
 </ul>
 <div class="highlight highlight-source-shell"><pre>apt-get install cvs</pre></div>
 
@@ -193,7 +193,7 @@ pre {
 
 </section>
 
-<section>
+<section id="integration">
 
 <h3>Integration</h3>
 
@@ -242,7 +242,39 @@ hooks.webhook-contenttype=application/json</li>
 }</pre></div>
 </section>
 
-<section>
+<section id="authentication">
+<h3>Authentication</h3>
+
+<p>Access to Postsai installations may be regulated using webserver authentication mechanisms.</p>
+<p>On the simple level, access to the complete installation may be limited. But Postsai is also able to pick up authentication information
+provided by Apache or nginx to allow access on a per repository level.</p>
+
+<p>There are two functions, which may be defined in config.py for this purpose. The following example allows read access to all repositories (.*),
+but limits write access to the regular expression set by the webserver as environment variable AUTHENTICATE_POSTSAI_WRITE_PATTERN. This
+variable may be the result of a LDAP query performed by the webserver authorization module, for example.</p>
+
+<pre>
+def get_read_permission_pattern():
+    """return a regular expression of repository names that may be read"""
+    return ".*"
+
+
+def get_write_permission_pattern():
+    """return a regular expression of repository names that may be written to"""
+    return os.environ.get("AUTHENTICATE_POSTSAI_WRITE_PATTERN", "^$")
+</pre>
+
+<p>For simplicity, it is also possible to do the authorization within those methods itself, for example by comparing REMOTE_USER to a hardcoded list.
+
+
+<p><b>Important</b>: If you use HTTP Basic Authentication to grant read access by browsers, you will need to set <code>"service_worker": False</code> in
+config.py, section ui. (<a href="https://bugs.chromium.org/p/chromium/issues/detail?id=623464">Chrome Bug</a>, 
+<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1291893">Firefox Bug</a>).</p>
+
+
+</section>
+
+<section id="privacy">
 <h3>Privacy</h3>
 
 <p><b>Hide email domain</b>
@@ -280,7 +312,7 @@ hooks.webhook-contenttype=application/json</li>
 </section>
 
 <footer>
-(C) Copyright 2016-2017Postsai. Postsai is released as Free and Open Source Software under MIT license.
+(C) Copyright 2016-2017 Postsai. Postsai is released as Free and Open Source Software under MIT license.
 </footer>
 </div>
 </body>
